@@ -32,3 +32,5 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	
 
 }
+
+//just to taste
