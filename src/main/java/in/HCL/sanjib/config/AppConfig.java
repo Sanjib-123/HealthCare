@@ -33,4 +33,4 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 }
 
-//just to taste
+//just to taste the updation
