@@ -1,6 +1,7 @@
 package in.HCL.sanjib.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import in.HCL.sanjib.entity.Doctor;
 import in.HCL.sanjib.exception.DoctorNotFoundException;
 import in.HCL.sanjib.repo.DoctorRepository;
 import in.HCL.sanjib.service.IDoctorService;
+import in.HCL.sanjib.util.MyCollectionsUtil;
 
 @Service
 
@@ -51,6 +53,13 @@ public class DoctorServiceImpl implements IDoctorService  {
 		else throw new DoctorNotFoundException(doc.getId()+", not exists");
 			
 
+	}
+
+	@Override
+	public Map<Long, String> getDoctorIdAndNames() {
+		List<Object[]> list = repo.getDoctorIdAndNames();
+		return MyCollectionsUtil.convertToMapIndex(list);
+		
 	}
 
 }

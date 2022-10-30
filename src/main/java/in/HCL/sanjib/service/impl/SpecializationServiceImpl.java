@@ -78,7 +78,7 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	public Map<Long, String> getSpecIdAndName() {
 		List<Object[]> list = repo.getSpecIdAndName();
 		
-		Map<Long,String> map = MyCollectionsUtil.convertListToMap(list);
+		Map<Long,String> map = MyCollectionsUtil.convertToMap(list);
 		return map;
 	}
 	
