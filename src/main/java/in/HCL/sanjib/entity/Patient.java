@@ -2,7 +2,8 @@ package in.HCL.sanjib.entity;
 
 
 
-import java.sql.Date;
+import java.util.Date;
+//import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -37,10 +38,13 @@ public class Patient {
 	
 	@Column(name="pat_first_name_col")
 	private String firstName;
+	
 	@Column(name="pat_last_name_col")
 	private String lastName;
+	
 	@Column(name="pat_gen_col")
 	private String gender;
+	
 	@Column(name="pat_mob_col")
 	private String mobile;
 	
