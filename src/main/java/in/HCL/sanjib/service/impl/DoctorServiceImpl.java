@@ -6,11 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import in.HCL.sanjib.constants.UserRoles;
 import in.HCL.sanjib.entity.Doctor;
+import in.HCL.sanjib.entity.User;
 import in.HCL.sanjib.exception.DoctorNotFoundException;
 import in.HCL.sanjib.repo.DoctorRepository;
 import in.HCL.sanjib.service.IDoctorService;
+import in.HCL.sanjib.service.IUserService;
 import in.HCL.sanjib.util.MyCollectionsUtil;
+import in.HCL.sanjib.util.UserUtil;
 
 @Service
 
@@ -18,11 +22,31 @@ public class DoctorServiceImpl implements IDoctorService  {
 	
 	@Autowired
 	private DoctorRepository repo;
+	
+	@Autowired
+	private IUserService userService;
+	
+	
+	@Autowired
+	private UserUtil util;
+	
+	
+	
 
 	@Override
 	public Long saveDoctor(Doctor doc) {
-		
-		return repo.save(doc).getId();
+		Long id = repo.save(doc).getId();
+		if(id != null) {
+			User user = new User();
+			user.setDisplayName(doc.getFirstName()+" "+doc.getLastName());
+			user.setUsername(doc.getEmail());
+			user.setPassword(util.genPwd());
+			user.setRole(UserRoles.DOCTOR.name());
+			userService.saveUser(user);
+			//TODO :Email part is pending
+			
+		}
+		return id;
 	}
 
 	@Override

@@ -49,6 +49,9 @@ public class Patient {
 	@Column(name="pat_mob_col")
 	private String mobile;
 	
+	@Column(name="pat_mail_col")
+	private String email;
+	
 	@Column(name="pat_dob_col")
 	@DateTimeFormat(iso=ISO.DATE)
 	@Temporal(TemporalType.DATE)
