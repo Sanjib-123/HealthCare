@@ -1,4 +1,7 @@
-<html xmlns:th="https://www.thymeleaf.org/">
+<html
+xmlns:th="https://www.thymleaf.org/"
+ xmlns:th="https://www.thymeleaf.org/extras/spring-security5"
+ >
 
  <head th:fragment="header">
     <link
@@ -26,7 +29,7 @@
         <a class="nav-link" href="#">Admin</a>
       </li>
       <!--Specialization Start-->
-       <li class="nav-item dropdown">
+       <li class="nav-item dropdown" sec:authorize="hasAuthority('Admin')">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Specialization
         </a>
@@ -39,7 +42,7 @@
    <!--Specialization End-->
    
     <!--Doctor Start-->
-       <li class="nav-item dropdown">
+       <li class="nav-item dropdown" sec:authorize="hasAuthority('Doctor')">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Doctor
         </a>
@@ -58,14 +61,14 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" th:href="@{/patient/register}">Add</a>
-          <a class="dropdown-item" th:href="@{/patient/all}">View All</a>
+          <a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('Admin')">View All</a>
          
         </div>
       </li>
    <!--Patient End-->
    
     <!--Appointment Start-->
-       <li class="nav-item dropdown">
+       <li class="nav-item dropdown" sec:authorize="hasAuthority('Admin')">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Appointment
         </a>
@@ -76,6 +79,12 @@
         </div>
       </li>
    <!--Appointment End-->
+   
+   <li class="nav-item">
+   <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+   Logout(<span sec:authentication="name"></span><span sec:authentication="principal.authorities"></span>)
+   </a>
+   </li>
     </ul>
    
   </div>

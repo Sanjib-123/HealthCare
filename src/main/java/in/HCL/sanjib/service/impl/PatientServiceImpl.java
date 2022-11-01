@@ -15,6 +15,7 @@ import in.HCL.sanjib.entity.User;
 import in.HCL.sanjib.repo.PatientRepository;
 import in.HCL.sanjib.service.IPatientService;
 import in.HCL.sanjib.service.IUserService;
+import in.HCL.sanjib.util.MyMailUtil;
 import in.HCL.sanjib.util.UserUtil;
 
 @Service
@@ -28,19 +29,29 @@ public class PatientServiceImpl implements IPatientService {
 	
 	@Autowired
 	private UserUtil util;
+	
+	@Autowired
+	private MyMailUtil mailUtil ;
 
 	@Override
 	@Transactional
 	public Long savePatient(Patient patient) {
 		Long id = repo.save(patient).getId();
 		if(id != null) {
+			String pwd = util.genPwd();
 			User user = new User();
 			user.setDisplayName(patient.getFirstName()+" "+patient.getLastName());
 			user.setUsername(patient.getEmail());
-			user.setPassword(util.genPwd());
+			user.setPassword(pwd);
 			user.setRole(UserRoles.PATIENT.name());
-			userService.saveUser(user);
-			//TODO :Email part is pending 
+			Long genId = userService.saveUser(user);
+			if(genId!=null)
+				new Thread(new Runnable() {	
+				public void run() {
+			String text  = "Your name is " + patient.getEmail() + ",password is "+pwd;
+			mailUtil.send(patient.getEmail(),"PATIENT ADDED",text);
+				}
+		}).start();
 		}
 		return id;
 	}

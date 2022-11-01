@@ -14,6 +14,7 @@ import in.HCL.sanjib.repo.DoctorRepository;
 import in.HCL.sanjib.service.IDoctorService;
 import in.HCL.sanjib.service.IUserService;
 import in.HCL.sanjib.util.MyCollectionsUtil;
+import in.HCL.sanjib.util.MyMailUtil;
 import in.HCL.sanjib.util.UserUtil;
 
 @Service
@@ -30,6 +31,9 @@ public class DoctorServiceImpl implements IDoctorService  {
 	@Autowired
 	private UserUtil util;
 	
+	@Autowired
+	private MyMailUtil mailUtil;
+	
 	
 	
 
@@ -37,13 +41,23 @@ public class DoctorServiceImpl implements IDoctorService  {
 	public Long saveDoctor(Doctor doc) {
 		Long id = repo.save(doc).getId();
 		if(id != null) {
+			String pwd = util.genPwd();
 			User user = new User();
 			user.setDisplayName(doc.getFirstName()+" "+doc.getLastName());
 			user.setUsername(doc.getEmail());
 			user.setPassword(util.genPwd());
 			user.setRole(UserRoles.DOCTOR.name());
-			userService.saveUser(user);
+			//userService.saveUser(user);
 			//TODO :Email part is pending
+		
+				Long genId = userService.saveUser(user);
+				if(genId!=null)
+					new Thread(new Runnable() {	
+					public void run() {
+				String text  = "Your name is " + doc.getEmail() + ",password is "+pwd;
+				mailUtil.send(doc.getEmail(),"PATIENT ADDED",text);
+					}
+			}).start();
 			
 		}
 		return id;
