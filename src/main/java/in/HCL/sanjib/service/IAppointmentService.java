@@ -15,5 +15,7 @@ public interface IAppointmentService {
 	Appointment getOneAppointment(Long id);
 	
 	List<Appointment> getAllAppointments();
+	
+	List<Object[]> getAppointmentsByDoctor(Long docId);
 
 }

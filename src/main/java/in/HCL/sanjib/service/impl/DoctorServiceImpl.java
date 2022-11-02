@@ -100,4 +100,10 @@ public class DoctorServiceImpl implements IDoctorService  {
 		
 	}
 
+	@Override
+	public List<Doctor> findDoctorBySpecName(Long specId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
