@@ -25,7 +25,7 @@
 			</li>
 			<!--Specialization Start-->
 			<!-- <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">-->
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					Specialization
@@ -40,7 +40,7 @@
 
 			<!--Doctor Start-->
 			<!-- <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">-->
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					Doctor
@@ -60,8 +60,9 @@
 					Patient
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" th:href="@{/patient/register}">Add</a>
-					<a class="dropdown-item" th:href="@{/patient/all}" ">View All</a>
+					<a class="dropdown-item" th:href="@{/patient/register}" sec:authorize="isAnonymous()">Add</a>
+					<a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">View All</a>
+					<a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">My Profile</a>
          
         </div>
       </li>
@@ -75,9 +76,9 @@
 							Appointment
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" th:href="@{/appointment/register}">Add</a>
-							<a class="dropdown-item" th:href="@{/appointment/all}">View All</a>
-							<a class="dropdown-item" th:href="@{/appointment/view}">Book</a>
+							<a class="dropdown-item" th:href="@{/appointment/register}" sec:authorize="hasAuthority('ADMIN')">Add</a>
+							<a class="dropdown-item" th:href="@{/appointment/all}" sec:authorize="hasAuthority('ADMIN')">View All</a>
+							<a class="dropdown-item" th:href="@{/appointment/view}" sec:authority="hasAuthority('PATIENT')">Book</a>
 
 						</div>
 			</li>

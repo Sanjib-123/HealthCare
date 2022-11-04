@@ -44,6 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
 		//.antMatchers("/spec/**").hasAuthority(UserRoles.ADMIN.name())
 		
+		.antMatchers("/patient/register","/patient/save").permitAll()
+		.antMatchers("/spec/**").hasAuthority(UserRoles.ADMIN.name())
+		.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
+		.antMatchers("/appointment/register","/appointment/save","/appoinrment/all").hasAnyAuthority(UserRoles.ADMIN.name())
+		.antMatchers("/appointment/view","/appointment/viewSlot").hasAuthority(UserRoles.ADMIN.name())
+		
+		
+		
 		.anyRequest().authenticated()
 		
 		.and()
