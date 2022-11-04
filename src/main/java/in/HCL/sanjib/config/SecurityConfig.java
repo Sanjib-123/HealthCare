@@ -6,8 +6,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import in.HCL.sanjib.constants.UserRoles;
 
@@ -44,11 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
 		//.antMatchers("/spec/**").hasAuthority(UserRoles.ADMIN.name())
 		
+		.antMatchers("/user/login").permitAll()
 		.antMatchers("/patient/register","/patient/save").permitAll()
 		.antMatchers("/spec/**").hasAuthority(UserRoles.ADMIN.name())
 		.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
 		.antMatchers("/appointment/register","/appointment/save","/appoinrment/all").hasAnyAuthority(UserRoles.ADMIN.name())
 		.antMatchers("/appointment/view","/appointment/viewSlot").hasAuthority(UserRoles.ADMIN.name())
+		.antMatchers("/user/login","/login").permitAll()
 		
 		
 		
@@ -56,11 +61,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		.and()
 		.formLogin()
-		.defaultSuccessUrl("/spec/all",true)
+		.loginPage("/user/login")   //show Login Page
+		.loginProcessingUrl("/login") //POST(do login)
+		.defaultSuccessUrl("/user/setup",true)
+		.failureUrl("/user/login?error=true") //if login is failed
 		
 		.and()
-		.logout();
-		
+		.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //URL 
+		.logoutSuccessUrl("/user/login?logout=true")
+		;
 		
 		
 		//fORM Configuration
@@ -70,5 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//exception handling
 		
 	}
+
+	
 
 }
