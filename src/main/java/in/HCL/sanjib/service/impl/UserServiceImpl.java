@@ -3,6 +3,8 @@ package in.HCL.sanjib.service.impl;
 import java.util.Collections;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.User;
@@ -36,6 +38,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
 		
 		return repo.save(user).getId();
 	}
+	
+	
+	
 
 	@Override
 	public Optional<User> findByUsername(String username) {
@@ -59,6 +64,16 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
 				Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))
 				);
 		}
+	}
+
+
+
+
+	@Transactional
+	public void updateUserPwd(String pwd, Long userId) {
+		 String encPwd = passwordEncoder.encode(pwd);
+		 repo.updateUserPwd(encPwd, userId);
+		
 	}
 
 }

@@ -8,5 +8,6 @@ public interface IUserService {
 	
 	Long saveUser(User user);
 	Optional<User> findByUsername(String username);
+	void updateUserPwd(String Pwd,Long userId);
 
 }
