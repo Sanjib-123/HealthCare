@@ -17,5 +17,7 @@ public interface IAppointmentService {
 	List<Appointment> getAllAppointments();
 	
 	List<Object[]> getAppointmentsByDoctor(Long docId);
+	
+	public List<Object[]> getAppointmentsByDoctorEmail(String userName);
 
 }

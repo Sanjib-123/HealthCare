@@ -1,5 +1,6 @@
 package in.HCL.sanjib.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -153,6 +154,17 @@ public class AppointmentController {
 		Doctor doc = doctorService.getOneDoctor(id);
 		model.addAttribute("message","Result showing for " + doctorService.getOneDoctor(id).getFirstName()+" "+doc.getLastName());
 		return "AppointmentSlots";
+	}
+	
+	@GetMapping("/currentDoc")
+	public String getCurrentDocAppointments(
+			Model model,
+			Principal p
+			) {
+		List<Object[]> list = service.getAppointmentsByDoctorEmail(p.getName());
+				model.addAttribute("list",list);
+		
+		return "AppointmentDoctor";
 	}
 	
 

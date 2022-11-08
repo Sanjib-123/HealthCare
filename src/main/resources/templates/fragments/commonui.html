@@ -86,24 +86,26 @@
 						All</a>
 					<a class="dropdown-item" th:href="@{/appointment/view}"
 						sec:authority="hasAuthority('PATIENT')">Book</a>
+						<a class="dropdown-item" th:href="@{/appointment/currentDoc}"
+						sec:authority="hasAuthority('DOCTOR')">View Mine</a>
 
 				</div>
 			</li>
 			<!--Appointment End-->
-			
+
 			<!--Appointment Start-->
 
 			<li class=" nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					<span th:text="${session.userOb.displayName}"></span><span sec:authentication=""></span>
-					
+
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" th:href="@{/user/profile}">My Profile</a>
 					<a class="dropdown-item" th:href="@{/user/showPwdUpdate}">Password Updated</a>
 					<a class="dropdown-item" th:href="@{/logout}">Logout</a>
-					
+
 
 				</div>
 			</li>
