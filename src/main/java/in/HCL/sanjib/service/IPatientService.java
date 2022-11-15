@@ -15,5 +15,7 @@ public interface IPatientService {
 	Patient getOnePatient(Long id);
 	
 	List<Patient> getAllPatients();
+	
+	Patient getOneByEmail(String email);
 
 }

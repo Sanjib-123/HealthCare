@@ -74,7 +74,7 @@
 
 			<!--Appointment Start-->
 
-			<li class=" nav-item dropdown">
+			<li class=" nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					Appointment
@@ -92,8 +92,27 @@
 				</div>
 			</li>
 			<!--Appointment End-->
+			
+			
+			<!--SLOT Start-->
 
-			<!--Appointment Start-->
+			<li class=" nav-item dropdown" sec:authorize="isAuthenticated()">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					Slots Request
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" th:href="@{/slot/all}"
+						sec:authorize="hasAuthority('ADMIN')">Add</a>
+					<a class="dropdown-item" th:href="@{/slot/patient}" sec:authorize="hasAuthority('ADMIN')">View
+						My Slots</a>
+					
+
+				</div>
+			</li>
+			<!--Appointment End-->
+
+			<!--USER Start-->
 
 			<li class=" nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

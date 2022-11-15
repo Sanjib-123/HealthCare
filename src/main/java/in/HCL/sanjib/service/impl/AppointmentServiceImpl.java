@@ -67,4 +67,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
 		return repo.getAppointmentsByDoctorEmail(userName);
 	}
 
+	@Override
+	public void updateSlotCountForAppointment(Long id, int count) {
+		repo.updateSlotCountForAppointment(id, count);
+		
+	}
+
 }

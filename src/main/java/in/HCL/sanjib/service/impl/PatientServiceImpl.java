@@ -88,4 +88,12 @@ public class PatientServiceImpl implements IPatientService {
 		return repo.findAll();
 	}
 
+	@Override
+	public Patient getOneByEmail(String email) {
+		
+		return repo.findByEmail(email).get();
+	}
+	
+	
+
 }
