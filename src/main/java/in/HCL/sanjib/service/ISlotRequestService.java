@@ -20,5 +20,8 @@ public interface ISlotRequestService {
 	
 	//Patient can see his slots
 	List<SlotRequest> viewSlotsByPatientMail(String patientMail);
+	
+	//DOCTOR can see his slots
+	List<SlotRequest> viewSlotsByDoctorMail(String doctorMail);
 
 }

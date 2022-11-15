@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import in.HCL.sanjib.constants.SlotStatus;
 import in.HCL.sanjib.entity.SlotRequest;
 import in.HCL.sanjib.repo.SlotRequestRepository;
 import in.HCL.sanjib.service.ISlotRequestService;
@@ -50,5 +51,13 @@ public class SlotRequestServiceImpl implements ISlotRequestService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<SlotRequest> viewSlotsByDoctorMail(String doctorMail) {
+		
+		return repo.getAllDoctorSlots(doctorMail,SlotStatus.ACCEPTED.name());
+	}
+
+	
 
 }

@@ -14,8 +14,11 @@ public interface SlotRequestRepository extends JpaRepository<SlotRequest, Long> 
 	@Query("UPDATE SlotRequest SET status=:status WHERE id=:id ")
 	void updateSlotsRequestStatus(Long id,String status);
 	
-	@Query("SELECT sr FROM SlotRequest sr INNER JOIN sr.patient as patient as patient WHERE patient.email=:patientMail")
+	@Query("SELECT sr FROM SlotRequest sr INNER JOIN sr.patient as patient WHERE patient.email=:patientMail")
 	List<SlotRequest> getAllPatientSlots(String patientMail);
+	
+	@Query("SELECT sr FROM SlotRequest sr INNER JOIN sr.appointment as appointment INNER JOIN appointment.doctor as doctor WHERE doctor.email=:doctorMail AND sr.status=:status")
+	List<SlotRequest> getAllDoctorSlots(String doctortMail,String status);
 	
 
 }

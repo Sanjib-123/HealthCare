@@ -90,6 +90,17 @@ public class SlotRequestController {
 		return "SlotRequestDataPatient";
 	}
 	
+	@GetMapping("/doctor")
+	public String viewMyReqDoc(
+			Principal principal,
+			Model model) {
+		
+		String email = principal.getName();
+		List<SlotRequest> list = service.viewSlotsByDoctorMail(email);
+		model.addAttribute("list",list);
+		return "SlotRequestDataDoctor";
+	}
+	
 	@GetMapping("/accept")
 	public String updateSlotAccept(
 			@RequestParam Long id) {
